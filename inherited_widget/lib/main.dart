@@ -135,15 +135,31 @@ class CounterLabel extends StatelessWidget {
   }
 }
 
-class CounterValue extends StatelessWidget {
+class CounterValue extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return CounterValueState();
+  }
+}
+
+class CounterValueState extends State<CounterValue> {
+  int counterValue;
+  double fontSize;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    MyStatefulWidgetState data = MyStatefulWidget.of(context);
+    counterValue = data.counterValue;
+    fontSize = 50.0 + counterValue;
+  }
+
   @override
   Widget build(BuildContext context) {
-    MyStatefulWidgetState data = MyStatefulWidget.of(context);
-
     return Text(
-      "${data.counterValue}",
+      "$counterValue",
       style: TextStyle(
-        fontSize: 80,
+        fontSize: fontSize,
         color: Colors.white,
       ),
     );
